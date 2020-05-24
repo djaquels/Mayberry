@@ -12,7 +12,9 @@
     <g:each var="component" in="${components}">
     <div class="pure-u-1-3 card">
     <p>Name: ${component.name}</p>
-    <p>Url: ${component.url} Port: ${component.port} </p> 
+    <p>Url: ${component.url} Port: ${component.port} </p>
+    <button class="button-warning pure-button">Edit</button>
+    <button class="button-error pure-button">Delete</button> 
     </div>
     </g:each>
 </div>

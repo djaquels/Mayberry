@@ -32,8 +32,14 @@
                 <li class="pure-menu-item menu-item-divided">
                     <a href="/component" class="pure-menu-link">Components</a>
                 </li>
+                <li class="pure-menu-item menu-item-divided">
+                    <a href="/squad" class="pure-menu-link">Squads</a>
+                </li>
+                <li class="pure-menu-item menu-item-divided">
+                    <a href="/login" class="pure-menu-link">Login</a>
+                </li>
 
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+                <li class="pure-menu-item"><a href="/contact" class="pure-menu-link">Contact</a></li>
             </ul>
         </div>
     </div>
