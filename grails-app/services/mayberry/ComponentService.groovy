@@ -11,4 +11,7 @@ class ComponentService {
     def list() {
         Component.list()
     }
+    def get(Long id){
+        Component.get(id)
+    }
 }

@@ -11,4 +11,8 @@ class SquadService {
     def list() {
         Squad.list()
     }
+    def get(Long id){
+        Squad.get(id)
+    }
+    
 }

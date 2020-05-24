@@ -6,6 +6,9 @@
 </head>
 <body>
 <h3>Components List </h3>
+<span>
+${mensaje}</p>
+</span>
 <button class="pure-button pure-button-primary">New Component.</button>
 <div class="pure-g">
     
@@ -13,7 +16,8 @@
     <div class="pure-u-1-3 card">
     <p>Name: ${component.name}</p>
     <p>Url: ${component.url} Port: ${component.port} </p>
-    <button class="button-success pure-button">View</button>
+    <a href="/component/view/${component.id}">
+    <button class="button-success pure-button">View</button></a>
     <button class="button-warning pure-button">Edit</button>
     <button class="button-error pure-button">Delete</button> 
     </div>
