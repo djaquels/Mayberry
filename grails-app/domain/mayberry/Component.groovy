@@ -7,6 +7,7 @@ class Component {
     Integer port
     String discoverName
     Integer idSquad
+    String  gitlab
     static mapping = {
         table 'component'
         id generator: 'identity'
@@ -16,5 +17,6 @@ class Component {
         port column: 'port'
         discoverName column: 'discover_name'
         idSquad column: 'id_squad'
+        gitlab column: 'gitlab'
     }
 }

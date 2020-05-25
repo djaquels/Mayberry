@@ -8,6 +8,10 @@
 <h3>Components List </h3>
 <span>
 ${mensaje}</p>
+<p>
+${result}
+Code: ${code}
+</p>
 </span>
 <button class="pure-button pure-button-primary">New Component.</button>
 <div class="pure-g">

@@ -1,5 +1,5 @@
 package mayberry
-
+import groovyx.net.http.*
 class ComponentController {
     def componentService
     def squadService
@@ -9,9 +9,15 @@ class ComponentController {
     }
     def create(){
         //https://gitlab.com/heptorsj/spring-seed.git
-        String seed = "https://gitlab.com/heptorsj/spring-seed.git"
+        //String seed = "18967563"
+        String seed = ""
         def tech = params.framework
         def squads = squadService.list()
+        switch(tech) {
+            case "Spring":
+                seed = "18967563"
+            break
+        }
         [seed: seed ,framework: tech, squads: squads]
     }
 
@@ -28,9 +34,31 @@ class ComponentController {
         def dname = params.discoverName
         def squad = params.idSquad
         def token = params.token
-        def mensaje = "Component " + name + " created."
+        def seed = params.seed
+        def mensaje = "Component  ${name} created"
+        // forking the project fork?name=${name}&path=${name}
+        //def http = new HTTPBuilder('http://gitlab.com/')
+        StringBuilder result = new StringBuilder();
+        def code = 0
+        HttpURLConnection urlConnection;
+        def urlParameters  = "?path=${name}&name=${name}";
+        URL gitUrl = new URL("https://gitlab.com/api/v4/projects/${seed}/fork${urlParameters}");
+        urlConnection = (HttpURLConnection) gitUrl.openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setRequestProperty("PRIVATE-TOKEN", token);
+        InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
+        String line;
+        while ((line = reader.readLine()) != null) {
+                result.append(line);
+        }
+        def texto = result.toString();
+        code = urlConnection.getResponseCode();
         def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad)
-        service.save()
-        render(view:'index',model:[components:list, mensaje: mensaje])
+        //example request 
+        //curl --request POST   --header "PRIVATE-TOKEN:wg35TzG37zU7BbMkSXwb" 
+        //"https://gitlab.com/api/v4/projects/18967563/fork?path=test&name=test"
+        //service.save()
+        render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
     }
 }
