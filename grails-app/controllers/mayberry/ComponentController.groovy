@@ -9,7 +9,7 @@ class ComponentController {
     }
     def create(){
         //https://gitlab.com/heptorsj/spring-seed.git
-        //String seed = "18967563"
+        //String seed = "57"
         String seed = ""
         def tech = params.framework
         def squads = squadService.list()
@@ -42,7 +42,7 @@ class ComponentController {
         def code = 0
         HttpURLConnection urlConnection;
         def urlParameters  = "?path=${name}&name=${name}";
-        URL gitUrl = new URL("https://gitlab.com/api/v4/projects/${seed}/fork${urlParameters}");
+        URL gitUrl = new URL("https://192.168.100.229/api/v4/projects/${seed}/fork${urlParameters}");
         urlConnection = (HttpURLConnection) gitUrl.openConnection();
         urlConnection.setRequestMethod("POST");
         urlConnection.setRequestProperty("PRIVATE-TOKEN", token);
@@ -53,12 +53,15 @@ class ComponentController {
                 result.append(line);
         }
         def texto = result.toString();
+        def slurper = new groovy.json.JsonSlurper()
+        def json = slurper.parseText(texto)
+        def gitlink = ""//"http://${json.http_url_repo}"
         code = urlConnection.getResponseCode();
-        def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad)
+        def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
         //example request 
-        //curl --request POST   --header "PRIVATE-TOKEN:wg35TzG37zU7BbMkSXwb" 
+        //curl --request POST   --header "PRIVATE-TOKEN:<token>"
         //"https://gitlab.com/api/v4/projects/18967563/fork?path=test&name=test"
-        //service.save()
+        service.save()
         render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
     }
 }

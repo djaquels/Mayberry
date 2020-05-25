@@ -103,7 +103,7 @@ dataSource:
     jmxExport: true
     driverClassName: org.postgresql.Driver
     username: postgres
-    password: 'mayberrypass'
+    password: '*sametsiS1'
     #dialect = org.hibernate.dialect.PostgreSQLDialect
 
 environments:
