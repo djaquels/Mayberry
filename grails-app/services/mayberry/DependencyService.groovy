@@ -1,18 +1,22 @@
 package mayberry
 
-import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
-@Service(Dependency)
-interface DependencyService {
+@Transactional
+class DependencyService {
 
-    Dependency get(Serializable id)
+    def serviceMethod() {
 
-    def list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    Dependency save(Dependency dependency)
+    }
+    def list() {
+        Dependency.list()
+    }
+    def get(Long id){
+        Dependency.get(id)
+    }
+    def delete(Long id){
+        def dependency = Dependency.get(id)
+        dependency.delete()
+    }
 
 }

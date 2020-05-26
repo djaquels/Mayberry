@@ -20,7 +20,8 @@ Component: ${component.name}
     <button class="button-warning pure-button">Edit</button>
     <a href="/component/delete/${component.id}">
     <button class="button-error pure-button">Delete</button></a>
-    <button class="pure-button pure-button-primary pure-button">Dependencies</button>  
+    <a href="/dependency/create?c1=${component.id}">
+    <button class="pure-button pure-button-primary pure-button">Dependencies</button> </a>
     <p></p> 
     </div>
 </div>

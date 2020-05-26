@@ -6,7 +6,7 @@ import static org.springframework.http.HttpStatus.*
 class DependencyController {
 
     DependencyService dependencyService
-
+    ComponentService componentService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -18,8 +18,11 @@ class DependencyController {
         respond dependencyService.get(id)
     }
 
-    def create() {
-        respond new Dependency(params)
+    def create(){
+        def c1 = Long.valueOf(params.c1)
+        def component = componentService.get(c1)
+        [c1: component]
+
     }
 
     def save(Dependency dependency) {
