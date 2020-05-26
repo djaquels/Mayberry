@@ -16,8 +16,10 @@ Component: ${component.name}
     <p>Port: ${component.port}</p>
     <p>Squad: ${component.idSquad}</p>
     <p>Discover Name: ${component.discoverName}</p>
+    <p><a href="${component.gitlab}">Repository</a></p>
     <button class="button-warning pure-button">Edit</button>
-    <button class="button-error pure-button">Delete</button>
+    <a href="/component/delete/${component.id}">
+    <button class="button-error pure-button">Delete</button></a>
     <button class="pure-button pure-button-primary pure-button">Dependencies</button>  
     <p></p> 
     </div>

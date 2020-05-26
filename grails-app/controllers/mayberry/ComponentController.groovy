@@ -42,23 +42,34 @@ class ComponentController {
         def code = 0
         HttpURLConnection urlConnection;
         def urlParameters  = "?path=${name}&name=${name}";
-        URL gitUrl = new URL("https://gitlab.com/api/v4/projects/${seed}/fork${urlParameters}");
+        URL gitUrl = new URL("https://gitlab.com/api/v4/projects/$seed/fork$urlParameters");
         urlConnection = (HttpURLConnection) gitUrl.openConnection();
         urlConnection.setRequestMethod("POST");
-        urlConnection.setRequestProperty("PRIVATE-TOKEN", token);
+        urlConnection.setRequestProperty("Private-Token", token);
         InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
+        code = urlConnection.getResponseCode();
         BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
         String line;
         while ((line = reader.readLine()) != null) {
                 result.append(line);
         }
         def texto = result.toString();
-        code = urlConnection.getResponseCode();
-        def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad)
+        def slurper = new groovy.json.JsonSlurper()
+        def json = slurper.parseText(texto)
+        def gitlink = json.http_url_to_repo
+        def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
         //example request 
-        //curl --request POST   --header "PRIVATE-TOKEN:wg35TzG37zU7BbMkSXwb" 
+        //curl --request POST   --header "PRIVATE-TOKEN:<token>" 
         //"https://gitlab.com/api/v4/projects/18967563/fork?path=test&name=test"
-        //service.save()
+        service.save()
+        render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
+    }
+    def delete(Long id){
+        componentService.delete(id)
+        def code = 200
+        def texto = "Component Deleted."
+        def list = componentService.list()
+        def mensaje = "Success"
         render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
     }
 }

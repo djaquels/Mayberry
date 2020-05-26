@@ -14,4 +14,9 @@ class ComponentService {
     def get(Long id){
         Component.get(id)
     }
+    def delete(Long id){
+        def component = Component.get(id)
+        component.delete()
+    }
+
 }
