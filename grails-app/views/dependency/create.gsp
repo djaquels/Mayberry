@@ -12,13 +12,21 @@
     <fieldset>
         <div class="pure-control-group">
             <label for="aligned-c1">Name</label>
-            <input type="numeric" id="c1" name="c1" placeholder="${c1.name}" value="${c1.id}" />
+            <g:select name="c2"
+                from="${list}"
+                value="${component?.id}"
+                optionKey="id" />
             <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <p>Depens Of: </p>
         <div class="pure-control-group">
             <label for="aligned-c2">Component 2</label>
-            <input type="numeric" id="c2" name="c2" placeholder="Dependency" value="" />
+            <g:select name="c2"
+                from="${list}"
+                value="${component?.id}"
+                optionKey="name"
+                optionValue="name"
+                 />
             <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <div class="pure-control-group">

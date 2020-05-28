@@ -21,7 +21,8 @@ class DependencyController {
     def create(){
         def c1 = Long.valueOf(params.c1)
         def component = componentService.get(c1)
-        [c1: component]
+        def componentsList = componentService.list()
+        [c1: component, list: componentsList]
 
     }
 
