@@ -8,7 +8,17 @@ class DependencyController {
     DependencyService dependencyService
     ComponentService componentService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    def newDependency(){
+        def grade = params.grade.toInteger()
+        def idC1 = params.c1.toInteger()
+        def idC2  = params.c2.toInteger()
+        def mensaje = "New Depedency created."
+        def componentsList = componentService.list()
+        def db = new Dependency(grade: grade, idC1: idC1, idC2: idC2)
+        dependencyService.save(db)
+        render(view:'index',model:[list: componentsList, mensaje: mensaje])
 
+    }
     def index(Integer max) {
         def list = dependencyService.list() ///Component.list()
         render(view:'index',model:[dependencies:list])
@@ -19,11 +29,8 @@ class DependencyController {
     }
 
     def create(){
-        def c1 = Long.valueOf(params.c1)
-        def component = componentService.get(c1)
         def componentsList = componentService.list()
-        [c1: component, list: componentsList]
-
+        [ list: componentsList]
     }
 
     def save(Dependency dependency) {

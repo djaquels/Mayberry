@@ -11,7 +11,7 @@
 <a href="/">
 <button class="pure-button pure-button-primary">New Component.</button></a>
 <div class="pure-g">
-    
+    ${mensaje}
     <g:each var="dependency" in="${Dependencies}">
     <div class="pure-u-1-3 card">
     <button class="button-success pure-button">View</button></a>

@@ -104,6 +104,7 @@ dataSource:
     driverClassName: org.postgresql.Driver
     username: postgres
     password: 'mayberrypass'
+    logSql: true
     #dialect = org.hibernate.dialect.PostgreSQLDialect
 
 environments:

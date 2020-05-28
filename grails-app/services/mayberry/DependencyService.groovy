@@ -18,5 +18,8 @@ class DependencyService {
         def dependency = Dependency.get(id)
         dependency.delete()
     }
+    def save(Dependency dependency){
+        dependency.save()
+    }
 
 }

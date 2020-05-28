@@ -8,14 +8,15 @@
 <h3>New Dependency </h3>
 <div class="pure-g">
 <div class="pure-u-1-1 card">
-    <form class="pure-form pure-form-aligned" action="newComponent" mehtod="POST">
+    <form class="pure-form pure-form-aligned" action="newDependency" mehtod="POST">
     <fieldset>
         <div class="pure-control-group">
             <label for="aligned-c1">Name</label>
-            <g:select name="c2"
+            <g:select name="c1"
                 from="${list}"
-                value="${component?.id}"
-                optionKey="id" />
+                optionKey="id"
+                optionValue="name"
+                 />
             <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <p>Depens Of: </p>
@@ -23,8 +24,7 @@
             <label for="aligned-c2">Component 2</label>
             <g:select name="c2"
                 from="${list}"
-                value="${component?.id}"
-                optionKey="name"
+                optionKey="id"
                 optionValue="name"
                  />
             <span class="pure-form-message-inline">This is a required field.</span>

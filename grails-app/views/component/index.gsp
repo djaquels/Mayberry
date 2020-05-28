@@ -9,7 +9,7 @@
 <span>
 ${mensaje}</p>
 <p>
-${result}
+
 Code: ${code}
 </p>
 </span>

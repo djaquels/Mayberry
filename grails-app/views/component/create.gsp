@@ -32,7 +32,11 @@
         </div>
         <div class="pure-control-group">
             <label for="aligned-squad">Squad</label>
-            <input type="text" name="idSquad" id="aligned-squad" placeholder="Squad" />
+            <g:select name="idSquad"
+                from="${squads}"
+                optionKey="id"
+                optionValue="name"
+                 />
         </div>
         <div class="pure-control-group">
             <label for="aligned-text">Token</label>
