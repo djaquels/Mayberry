@@ -39,23 +39,13 @@ Component: ${component.name}
     </div>
 </div>
 
-<script type="text/javascript">
-  // create an array with nodes
-  var nodes = new vis.DataSet([
-    {id: 1, label: 'Node 1'},
-    {id: 2, label: 'Node 2'},
-    {id: 3, label: 'Node 3'},
-    {id: 4, label: 'Node 4'},
-    {id: 5, label: 'Node 5'}
-  ]);
- 
+<g:javascript>
+<g:applyCodec encodeAs="none">
+ var arrson = ${nodes}.map(e => JSON.parse(e));
+ var nodes = new vis.DataSet(arrson);
   // create an array with edges
   var edges = new vis.DataSet([
-    {from: 1, to: 3},
-    {from: 1, to: 2},
-    {from: 2, to: 4},
-    {from: 2, to: 5},
-    {from: 3, to: 3}
+    
   ]);
  
   // create a network
@@ -66,6 +56,7 @@ Component: ${component.name}
   };
   var options = {};
   var network = new vis.Network(container, data, options);
-</script> 
+</g:applyCodec>
+</g:javascript>
 </body>
 </html>

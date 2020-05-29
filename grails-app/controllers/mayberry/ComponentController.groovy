@@ -1,5 +1,7 @@
 package mayberry
 import groovyx.net.http.*
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
 class ComponentController {
     def componentService
     def squadService
@@ -20,10 +22,32 @@ class ComponentController {
         }
         [seed: seed ,framework: tech, squads: squads]
     }
-
+    def getNodes(Long id_c1){
+        int id = 1
+        def nodes = Dependency.all.findAll {
+            it.idC1 == id_c1 || it.idC2 == id_c1
+        }
+        def uniques  = []
+        nodes.each {
+            uniques.add(it.idC1)
+        }
+        def djson = []
+        uniques.toSet().each {
+            def comp = Component.all.find { c -> 
+                c.id == it
+            }
+            def object = JsonOutput.toJson([id: id, label: "${comp.name}"])
+            djson.add(object)
+            id += 1
+        }
+       
+        
+        return JsonOutput.toJson(djson)
+    }
     def view(Long id){
         def component = componentService.get(id)
-        render(view:'view',model:[component:component])
+        def nodes = getNodes(id)
+        render(view:'view',model:[component:component , nodes: nodes])
     }
     def newComponent(){
         def list = componentService.list() ///Component.list()
