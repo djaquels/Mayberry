@@ -14,15 +14,16 @@
     </div>
     <div class="pure-u-1-4"><p>Flask</p>
     <g:img dir="images" file="/stack/flask.png" width="50" height="50"/><p>
-    <button class="button-success pure-button">New</button>
+    <a href="/component/create?framework=Flask">
+    <button class="button-success pure-button">New</button></a>
     </div>
     <div class="pure-u-1-4"><p>Laravel</p>
     <g:img dir="images" file="/stack/laravel.png" width="50" height="50"/><p>
-    <button class="button-success pure-button">New</button>
+    <button class="button-success pure-button disable">New</button>
     </div>
     <div class="pure-u-1-4"><p>JAVA</p>
     <g:img dir="images" file="/stack/java.png" width="50" height="50"/><p>
-    <button class="button-success pure-button">New</button>
+    <button class="button-success pure-button disable">New</button>
     </div>
 </div>
 </body>

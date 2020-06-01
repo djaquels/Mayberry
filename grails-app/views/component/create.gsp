@@ -28,6 +28,11 @@
             <input type="text" name="discoverName" id="aligned-dn" placeholder="/hello" />
         </div>
         <div class="pure-control-group">
+            <p> Leave blank to create a new Component </p>
+            <label for="aligned-dn">Gitlab URL: </label>
+            <input type="text" name="giturl" id="aligned-dn" placeholder="http://gitlab.com" />
+        </div>
+        <div class="pure-control-group">
             <input type="hidden" name="seed" id="aligned-password" placeholder="${seed}" value="${seed}" />
         </div>
         <div class="pure-control-group">

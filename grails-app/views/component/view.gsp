@@ -42,11 +42,10 @@ Component: ${component.name}
 <g:javascript>
 <g:applyCodec encodeAs="none">
  var arrson = ${nodes}.map(e => JSON.parse(e));
+ var arred = ${edges}.map(e => JSON.parse(e));
  var nodes = new vis.DataSet(arrson);
   // create an array with edges
-  var edges = new vis.DataSet([
-    
-  ]);
+  var edges = new vis.DataSet(arred);
  
   // create a network
   var container = document.getElementById('mynetwork');

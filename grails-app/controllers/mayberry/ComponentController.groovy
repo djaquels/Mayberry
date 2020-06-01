@@ -19,6 +19,9 @@ class ComponentController {
             case "Spring":
                 seed = "18967563"
             break
+            case "Flask":
+                seed = "19110882"
+            break
         }
         [seed: seed ,framework: tech, squads: squads]
     }
@@ -28,26 +31,39 @@ class ComponentController {
             it.idC1 == id_c1 || it.idC2 == id_c1
         }
         def uniques  = []
+        def uniquesedges = []
         nodes.each {
             uniques.add(it.idC1)
+            uniques.add(it.idC2)
+            def route = [it.idC1,it.idC2]
+            uniquesedges.add(route)
         }
+        uniquesedges = uniquesedges.toSet()
         def djson = []
+        def ejson = []
+        def mapn = [:]
         uniques.toSet().each {
             def comp = Component.all.find { c -> 
                 c.id == it
             }
             def object = JsonOutput.toJson([id: id, label: "${comp.name}"])
+            mapn[it] = id
             djson.add(object)
             id += 1
         }
+        uniquesedges.each { arr -> 
+            def route = JsonOutput.toJson([from: mapn.get(arr[0]), to: mapn.get(arr[1])] )
+            ejson.add(route)
+        }
        
         
-        return JsonOutput.toJson(djson)
+        return [JsonOutput.toJson(djson),JsonOutput.toJson(ejson)]
     }
     def view(Long id){
         def component = componentService.get(id)
-        def nodes = getNodes(id)
-        render(view:'view',model:[component:component , nodes: nodes])
+        def nodes = getNodes(id)[0]
+        def edges = getNodes(id)[1]
+        render(view:'view',model:[component:component , nodes: nodes, edges: edges])
     }
     def newComponent(){
         def list = componentService.list() ///Component.list()
@@ -59,34 +75,40 @@ class ComponentController {
         def squad = params.idSquad
         def token = params.token
         def seed = params.seed
+        def gitlaburl = params.giturl
+        if (!gitlaburl.isEmpty()){
+            def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
+            service.save()
+        }else{
+            StringBuilder result = new StringBuilder();
+            def code = 0
+            HttpURLConnection urlConnection;
+            def urlParameters  = "?path=${name}&name=${name}";
+            URL gitUrl = new URL("https://gitlab.com/api/v4/projects/$seed/fork$urlParameters");
+            urlConnection = (HttpURLConnection) gitUrl.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Private-Token", token);
+            InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
+            code = urlConnection.getResponseCode();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            def texto = result.toString();
+            def slurper = new groovy.json.JsonSlurper()
+            def json = slurper.parseText(texto)
+            def gitlink = json.http_url_to_repo
+            def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
+            service.save()
+        }
         def mensaje = "Component  ${name} created"
         // forking the project fork?name=${name}&path=${name}
         //def http = new HTTPBuilder('http://gitlab.com/')
-        StringBuilder result = new StringBuilder();
-        def code = 0
-        HttpURLConnection urlConnection;
-        def urlParameters  = "?path=${name}&name=${name}";
-        URL gitUrl = new URL("https://gitlab.com/api/v4/projects/$seed/fork$urlParameters");
-        urlConnection = (HttpURLConnection) gitUrl.openConnection();
-        urlConnection.setRequestMethod("POST");
-        urlConnection.setRequestProperty("Private-Token", token);
-        InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
-        code = urlConnection.getResponseCode();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
-        String line;
-        while ((line = reader.readLine()) != null) {
-                result.append(line);
-        }
-        def texto = result.toString();
-        def slurper = new groovy.json.JsonSlurper()
-        def json = slurper.parseText(texto)
-        def gitlink = json.http_url_to_repo
-        def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
         //example request 
         //curl --request POST   --header "PRIVATE-TOKEN:<token>" 
         //"https://gitlab.com/api/v4/projects/18967563/fork?path=test&name=test"
-        service.save()
-        render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
+        render(view:'index',model:[components:list, mensaje: mensaje])
     }
     def delete(Long id){
         componentService.delete(id)

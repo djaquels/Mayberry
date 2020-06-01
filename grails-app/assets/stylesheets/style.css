@@ -280,3 +280,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     background: rgb(66, 184, 221);
     /* this is a light blue */
 }
+.disable {
+    background-color: gray !important;
+}
