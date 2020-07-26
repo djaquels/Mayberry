@@ -102,8 +102,8 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: 'mayberrypass'
+    username: admin
+    password: 'postgres'
     logSql: true
     #dialect = org.hibernate.dialect.PostgreSQLDialect
 
