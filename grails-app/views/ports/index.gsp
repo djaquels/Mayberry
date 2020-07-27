@@ -10,7 +10,7 @@ Available Ports
 </h3>
 <button class="pure-button pure-button-primary">Search Port:</button>
 <div class="">
-    <table class="pure-table">
+    <table class="pure-table" style="width:100%;">
     <thead>
         <tr>
             <th>Name</th>
@@ -21,10 +21,10 @@ Available Ports
         <g:each var="component" in="${components}">
         <tr class="pure-menu-list">
         <td class="pure-menu-item">
-            Name: ${component.name}
+            ${component.name}
         </td>
         <td class="pure-menu-item">
-            Port: ${component.port}
+            ${component.port}
         </td>
     </tr>    
     </g:each>
