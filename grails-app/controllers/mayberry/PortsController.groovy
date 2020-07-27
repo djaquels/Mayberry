@@ -4,7 +4,7 @@ class PortsController {
     def componentService
     def index() { 
         def list = componentService.list() ///Component.list()
-        render(view:'index',model:[squads:list])
+        render(view:'index',model:[components:list])
 
     }
     def view(Long id){
