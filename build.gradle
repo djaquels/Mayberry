@@ -82,6 +82,7 @@ dependencies {
 bootRun {
     jvmArgs(
         '-Dspring.output.ansi.enabled=always', 
+        '-Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl',
         '-noverify', 
         '-XX:TieredStopAtLevel=1',
         '-Xmx1024m')
