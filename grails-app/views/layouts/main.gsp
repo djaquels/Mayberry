@@ -33,6 +33,9 @@
                     <a href="/component" class="pure-menu-link">Components</a>
                 </li>
                 <li class="pure-menu-item menu-item-divided">
+                    <a href="/ports" class="pure-menu-link">Available Ports</a>
+                </li>
+                <li class="pure-menu-item menu-item-divided">
                     <a href="/squad" class="pure-menu-link">Squads</a>
                 </li>
                 <li class="pure-menu-item menu-item-divided">
