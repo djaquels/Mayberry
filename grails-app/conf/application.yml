@@ -106,7 +106,8 @@ dataSource:
     password: 'postgres'
     logSql: true
     #dialect = org.hibernate.dialect.PostgreSQLDialect
-
+server:
+  port: 9809
 environments:
     development:
         dataSource:
