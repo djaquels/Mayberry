@@ -10,7 +10,7 @@ Available Ports
 </h3>
 <button class="pure-button pure-button-primary">Search Port:</button>
 <div class="pure-g">
-    table class="pure-table">
+    <table class="pure-table">
     <thead>
         <tr>
             <th>#</th>
