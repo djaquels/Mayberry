@@ -9,11 +9,10 @@
 Available Ports
 </h3>
 <button class="pure-button pure-button-primary">Search Port:</button>
-<div class="pure-g">
+<div class="">
     <table class="pure-table">
     <thead>
         <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Port</th>
         </tr>
