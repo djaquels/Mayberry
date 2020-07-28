@@ -16,7 +16,7 @@ Available Ports
         <tr>
             <th>Name</th>
             <th>Port</th>
-            <th>Url</th>
+            <th>Link</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@ Available Ports
             ${component.port}
         </td>
         <td class="pure-menu-item">
-            ${component.url}
+            <a href="${component.url}:${component.port}" target="_"> ${component.url}":"${component.port}</a>
         </td>
     </tr>    
     </g:each>
