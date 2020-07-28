@@ -29,7 +29,7 @@ Available Ports
             ${component.port}
         </td>
         <td class="pure-menu-item">
-            <a href="${component.url}:${component.port}" target="_"> ${component.url}":"${component.port}</a>
+            <a href="${component.url}:${component.port}" target="_"> ${component.url}:${component.port}</a>
         </td>
     </tr>    
     </g:each>
