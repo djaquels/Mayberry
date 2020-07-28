@@ -69,7 +69,6 @@ class ComponentController {
         render(view:'view',model:[component:component , nodes: nodes, edges: edges])
     }
     def newComponent(){
-        def list = componentService.list() ///Component.list()
         // here the component is created
         def name = params.name
         def url = params.url
@@ -79,7 +78,7 @@ class ComponentController {
         def token = params.token
         def seed = params.seed
         def gitlaburl = params.giturl
-        if (!gitlaburl.isEmpty()){
+        if (!gitlaburl.isEmpty() || seed.equals("XX")){
             def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
             service.save()
         }else{
@@ -112,6 +111,7 @@ class ComponentController {
             
         }
         def mensaje = "Component  ${name} created"
+        def list = componentService.list() ///Component.list()
         // forking the project fork?name=${name}&path=${name}
         //def http = new HTTPBuilder('http://gitlab.com/')
         //example request 
