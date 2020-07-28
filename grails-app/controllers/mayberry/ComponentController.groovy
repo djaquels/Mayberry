@@ -17,10 +17,13 @@ class ComponentController {
         def squads = squadService.list()
         switch(tech) {
             case "Spring":
-                seed = "18967563"
+                seed = "56"
             break
             case "Flask":
-                seed = "19110882"
+                seed = "87"
+            break
+            default:
+                seed = null
             break
         }
         [seed: seed ,framework: tech, squads: squads]
@@ -80,27 +83,33 @@ class ComponentController {
             def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
             service.save()
         }else{
-            StringBuilder result = new StringBuilder();
-            def code = 0
-            HttpURLConnection urlConnection;
-            def urlParameters  = "?path=${name}&name=${name}";
-            URL gitUrl = new URL("https://gitlab.com/api/v4/projects/$seed/fork$urlParameters");
-            urlConnection = (HttpURLConnection) gitUrl.openConnection();
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Private-Token", token);
-            InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
-            code = urlConnection.getResponseCode();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            def texto = result.toString();
-            def slurper = new groovy.json.JsonSlurper()
-            def json = slurper.parseText(texto)
-            def gitlink = json.http_url_to_repo
-            def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
-            service.save()
+            if( seed == null){
+                 def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
+                 service.save()
+            }else{
+                StringBuilder result = new StringBuilder();
+                def code = 0
+                HttpURLConnection urlConnection;
+                def urlParameters  = "?path=${name}&name=${name}";
+                URL gitUrl = new URL("https://192.168.100.236/api/v4/projects/$seed/fork$urlParameters");
+                urlConnection = (HttpURLConnection) gitUrl.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Private-Token", token);
+                InputStream ino = new BufferedInputStream(urlConnection.getInputStream());
+                code = urlConnection.getResponseCode();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(ino));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                def texto = result.toString();
+                def slurper = new groovy.json.JsonSlurper()
+                def json = slurper.parseText(texto)
+                def gitlink = json.http_url_to_repo
+                def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
+                service.save()    
+                }
+            
         }
         def mensaje = "Component  ${name} created"
         // forking the project fork?name=${name}&path=${name}
