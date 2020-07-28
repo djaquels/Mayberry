@@ -16,6 +16,7 @@ Available Ports
         <tr>
             <th>Name</th>
             <th>Port</th>
+            <th>Url</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,9 @@ Available Ports
         </td>
         <td class="pure-menu-item">
             ${component.port}
+        </td>
+        <td class="pure-menu-item">
+            ${component.url}
         </td>
     </tr>    
     </g:each>
