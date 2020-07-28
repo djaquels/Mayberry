@@ -23,7 +23,7 @@ class ComponentController {
                 seed = "87"
             break
             default:
-                seed = null
+                seed = "XX"
             break
         }
         [seed: seed ,framework: tech, squads: squads]
@@ -83,7 +83,7 @@ class ComponentController {
             def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
             service.save()
         }else{
-            if( seed == null){
+            if( seed == "XX"){
                  def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
                  service.save()
             }else{
