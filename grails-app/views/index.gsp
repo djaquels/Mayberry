@@ -28,7 +28,7 @@
     <div class="pure-u-1-4"><p>GENERAL SERVICE</p>
     <g:img dir="images" file="/stack/gear.jpg" width="50" height="50"/><p>
     <a href="/component/create?framework=Gear">
-    <button class="button-success pure-button disable">New</button></a>
+    <button class="button-success pure-button">New</button></a>
     </div>
 </div>
 </body>
