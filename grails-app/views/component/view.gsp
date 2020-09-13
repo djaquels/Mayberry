@@ -25,7 +25,8 @@ Component: ${component.name}
     <p>Squad: ${component.idSquad}</p>
     <p>Discover Name: ${component.discoverName}</p>
     <p><a href="${component.gitlab}" target="_blank"><g:img dir="images" file="/stack/repo.png" width="50" height="50"/><p></a></p>
-    <button class="button-warning pure-button">Edit</button>
+    <a href="/component/update/${component.id}">
+    <button class="button-warning pure-button">Edit</button></a>
     <a href="/component/delete/${component.id}">
     <button class="button-error pure-button">Delete</button></a>
     <a href="/dependency/create?c1=${component.id}">

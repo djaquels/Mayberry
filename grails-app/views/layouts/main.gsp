@@ -49,7 +49,7 @@
 
     <div id="main">
         <div class="header">
-            <g:img dir="images" file="Mayberry.png" width="200" height="200"/>
+            <g:img dir="images" file="Mayberry_PRO.png" width="200" height="200"/>
             <h2>Developer Portal</h2>
             <h2>Mayberry is a platform to manage your microservices architecture on your team.</h2>
             <p>
