@@ -62,6 +62,40 @@ class ComponentController {
         
         return [JsonOutput.toJson(djson),JsonOutput.toJson(ejson)]
     }
+    def getAllNodes(Long id_c1){
+        int id = 1
+        def nodes = Dependency.all.findAll {
+            it.idC1 == id_c1
+        }
+        def uniques  = []
+        def uniquesedges = []
+        nodes.each {
+            uniques.add(it.idC1)
+            uniques.add(it.idC2)
+            def route = [it.idC1,it.idC2]
+            uniquesedges.add(route)
+        }
+        uniquesedges = uniquesedges.toSet()
+        def djson = []
+        def ejson = []
+        def mapn = [:]
+        uniques.toSet().each {
+            def comp = Component.all.find { c -> 
+                c.id == it
+            }
+            def object = [id: id, label: "${comp.name}"]
+            mapn[it] = id
+            djson.add(object)
+            id += 1
+        }
+        uniquesedges.each { arr -> 
+            def route = [from: arr[0], to: arr[1]]
+            ejson.add(route)
+        }
+       
+        
+        return [djson,ejson]
+    }
     def view(Long id){
         def component = componentService.get(id)
         def nodes = getNodes(id)[0]
@@ -161,5 +195,22 @@ class ComponentController {
         component.save()
         def mensaje = " Component Updated! "
         render(view:'index',model:[components:list, mensaje: mensaje])
+    }
+    def overview(){
+        def components = componentService.list()
+        def nodes = []
+        def edges = []
+        def medges = [:].withDefault {[]}
+        components.each {
+            nodes.add(JsonOutput.toJson([id: it.id, label: it.name]))
+            def maps = getAllNodes(it.id)[1]
+            maps.each { route ->  
+                def from = route.from
+                def to = route.to
+                medges[from].add(to)
+                edges.add(JsonOutput.toJson([from: from, to:to] ))
+            }
+        }
+        render(view:'overview',model:[nodes: JsonOutput.toJson(nodes), edges: JsonOutput.toJson(edges)])
     }
 }

@@ -24,7 +24,7 @@ Code: ${code}
     <a href="/component/view/${component.id}">
     <button class="button-success pure-button">View</button></a>
     <a href="/component/update/${component.id}">
-    <button class="button-warning pure-button">Edit</button>
+    <button class="button-warning pure-button">Edit</button></a>
     </div>
     </g:each>
 </div>
