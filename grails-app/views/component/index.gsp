@@ -23,7 +23,8 @@ Code: ${code}
     <p>Url: ${component.url} Port: ${component.port} </p>
     <a href="/component/view/${component.id}">
     <button class="button-success pure-button">View</button></a>
-    <button class="button-warning pure-button">Edit</button>
+    <a href="/component/update/${component.id}">
+    <button class="button-warning pure-button">Edit</button></a>
     </div>
     </g:each>
 </div>

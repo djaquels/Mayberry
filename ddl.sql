@@ -19,3 +19,9 @@ CREATE TABLE dependencies (
  FOREIGN KEY(id_c2)
  REFERENCES component(id)
 );
+
+ALTER TABLE component
+ADD COLUMN url_development varchar(150);
+
+ALTER TABLE component
+ADD COLUMN port_development integer;

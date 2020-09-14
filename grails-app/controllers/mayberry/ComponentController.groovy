@@ -62,6 +62,40 @@ class ComponentController {
         
         return [JsonOutput.toJson(djson),JsonOutput.toJson(ejson)]
     }
+    def getAllNodes(Long id_c1){
+        int id = 1
+        def nodes = Dependency.all.findAll {
+            it.idC1 == id_c1
+        }
+        def uniques  = []
+        def uniquesedges = []
+        nodes.each {
+            uniques.add(it.idC1)
+            uniques.add(it.idC2)
+            def route = [it.idC1,it.idC2]
+            uniquesedges.add(route)
+        }
+        uniquesedges = uniquesedges.toSet()
+        def djson = []
+        def ejson = []
+        def mapn = [:]
+        uniques.toSet().each {
+            def comp = Component.all.find { c -> 
+                c.id == it
+            }
+            def object = [id: id, label: "${comp.name}"]
+            mapn[it] = id
+            djson.add(object)
+            id += 1
+        }
+        uniquesedges.each { arr -> 
+            def route = [from: arr[0], to: arr[1]]
+            ejson.add(route)
+        }
+       
+        
+        return [djson,ejson]
+    }
     def view(Long id){
         def component = componentService.get(id)
         def nodes = getNodes(id)[0]
@@ -76,14 +110,16 @@ class ComponentController {
         def dname = params.discoverName
         def squad = params.idSquad
         def token = params.token
-        def seed = params.seed
+        def seed = "no seed"
         def gitlaburl = params.giturl
-        if (!gitlaburl.isEmpty() || seed.equals("XX")){
-            def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
+        def url_development = params.url_development
+        def port_development = params.port_development
+        if (!gitlaburl.isEmpty()){
+            def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl,url_development: url_development, port_development: port_development)
             service.save()
         }else{
-            if( seed == "XX"){
-                 def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl)
+            if( seed == null){
+                 def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlaburl,url_development: url_development, port_development: port_development)
                  service.save()
             }else{
                 StringBuilder result = new StringBuilder();
@@ -105,7 +141,7 @@ class ComponentController {
                 def slurper = new groovy.json.JsonSlurper()
                 def json = slurper.parseText(texto)
                 def gitlink = json.http_url_to_repo
-                def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink)
+                def service = new Component(name: name, url: url, port: port, discoverName: dname, idSquad: squad,gitlab: gitlink, url_development: url_development, port_development: port_development)
                 service.save()    
                 }
             
@@ -126,5 +162,55 @@ class ComponentController {
         def list = componentService.list()
         def mensaje = "Success"
         render(view:'index',model:[components:list, mensaje: mensaje, result:texto, code:code])
+    }
+    def update(Long id){
+        def component = componentService.get(id)
+        def squads = squadService.list()
+        def nodes = getNodes(id)[0]
+        def edges = getNodes(id)[1]
+        render(view:'update',model:[component:component , nodes: nodes, edges: edges, squads: squads])
+    }
+
+    def updateComponent(){
+        def id = Integer.parseInt(params.id)
+        def component = componentService.get(id)
+        def list = componentService.list() ///Component.list()
+        // here the component is created
+        def name = params.name
+        def url = params.url
+        def port = params.port
+        def dname = params.discoverName
+        def squad = params.idSquad
+        def gitlaburl = params.giturl
+        def url_development = params.url_development
+        def port_development = params.port_development
+        component.url = url
+        component.name = name
+        component.port = Integer.parseInt(port)
+        component.discoverName = dname
+        component.idSquad = Integer.parseInt(squad)
+        component.gitlab = gitlaburl
+        component.url_development = url_development
+        component.port_development = Integer.parseInt(port_development)
+        component.save()
+        def mensaje = " Component Updated! "
+        render(view:'index',model:[components:list, mensaje: mensaje])
+    }
+    def overview(){
+        def components = componentService.list()
+        def nodes = []
+        def edges = []
+        def medges = [:].withDefault {[]}
+        components.each {
+            nodes.add(JsonOutput.toJson([id: it.id, label: it.name]))
+            def maps = getAllNodes(it.id)[1]
+            maps.each { route ->  
+                def from = route.from
+                def to = route.to
+                medges[from].add(to)
+                edges.add(JsonOutput.toJson([from: from, to:to] ))
+            }
+        }
+        render(view:'overview',model:[nodes: JsonOutput.toJson(nodes), edges: JsonOutput.toJson(edges)])
     }
 }

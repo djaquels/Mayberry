@@ -33,6 +33,9 @@
                     <a href="/component" class="pure-menu-link">Components</a>
                 </li>
                 <li class="pure-menu-item menu-item-divided">
+                    <a href="/component/overview" class="pure-menu-link">Overview</a>
+                </li>
+                <li class="pure-menu-item menu-item-divided">
                     <a href="/ports" class="pure-menu-link">Available Ports</a>
                 </li>
                 <li class="pure-menu-item menu-item-divided">
@@ -49,7 +52,7 @@
 
     <div id="main">
         <div class="header">
-            <g:img dir="images" file="Mayberry.png" width="200" height="200"/>
+            <g:img dir="images" file="Mayberry_PRO.png" width="200" height="200"/>
             <h2>Developer Portal</h2>
             <h2>Mayberry is a platform to manage your microservices architecture on your team.</h2>
             <p>
