@@ -27,3 +27,5 @@ See the dependencies graph of each of your components and the state of the conne
 |-------|------------|------------------------------------------------------|
 | 1     | Functional | Service A functionality depends on Service B results |
 | 2     | Storage    | Service A stores data into service B                 |
+| 3     | Complementary    | Some functionality of Service A depends on Service B              |
+| 4     | Storage    | Service A requires data from Service B                |
