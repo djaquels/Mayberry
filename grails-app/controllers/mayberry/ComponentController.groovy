@@ -38,12 +38,14 @@ class ComponentController {
         def uniques  = []
         def uniquesedges = []
         def colors = []
+        def details = []
         nodes.each {
             uniques.add(it.idC1)
             uniques.add(it.idC2)
             def route = [it.idC1,it.idC2]
             uniquesedges.add(route)
             colors.add(colorMap[it.grade])
+            details.add(it.detail)
         }
         uniquesedges = uniquesedges.toSet()
         def djson = []
@@ -80,12 +82,14 @@ class ComponentController {
         def uniques  = []
         def uniquesedges = []
         def colors = []
+        def details = []
         nodes.each {
             uniques.add(it.idC1)
             uniques.add(it.idC2)
             def route = [it.idC1,it.idC2]
             colors.add(colorMap[it.grade])
             uniquesedges.add(route)
+            details.add(it.detail)
         }
         uniquesedges = uniquesedges.toSet()
         def djson = []
@@ -103,8 +107,9 @@ class ComponentController {
         def ite = 0
         uniquesedges.each { arr -> 
             def dir = colors.get(ite)
-            def arrows = direccion[dir] 
-            def route = [from: arr[0], to: arr[1],color:colors.get(ite),arrows: arrows]
+            def arrows = direccion[dir]
+            def detail = details.get(ite)
+            def route = [from: arr[0], to: arr[1],color:colors.get(ite),arrows: arrows,detail:detail]
             ejson.add(route)
             ite += 1
         }
@@ -225,8 +230,9 @@ class ComponentController {
                 def to = route.to
                 def color = route.color
                 def arrow = route.arrows
+                def detail = route.detail
                 medges[from].add(to)
-                edges.add(JsonOutput.toJson([from: from, to:to,color:color,arrows:arrow] ))
+                edges.add(JsonOutput.toJson([from: from, to:to,color:color,arrows:arrow,detail:detail] ))
             }
         }
         render(view:'overview',model:[nodes: JsonOutput.toJson(nodes), edges: JsonOutput.toJson(edges)])
