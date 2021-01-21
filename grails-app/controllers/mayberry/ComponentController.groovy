@@ -30,8 +30,8 @@ class ComponentController {
     }
     def getNodes(Long id_c1){
         int id = 1
-        def colorMap = [1:"red",2:"green",3:"blue",4:"pink"]
-
+        def colorMap = [1:"red",2:"green",3:"blue",4:"purple"]
+        def direccion = ["red":"to","green":"to","blue":"to","purple":"from"]
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1 || it.idC2 == id_c1
         }
@@ -61,7 +61,8 @@ class ComponentController {
         def iterator = 0
         uniquesedges.each { arr -> 
             def colorjson = JsonOutput.toJson([color: colors.get(iterator)])
-            def route = JsonOutput.toJson([from: mapn.get(arr[0]), to: mapn.get(arr[1]),color:colorjson] )
+            def arrow = direccion[colors.get(iterator)]
+            def route = JsonOutput.toJson([from: mapn.get(arr[0]), to: mapn.get(arr[1]),color:colorjson,arrows:arrow] )
             ejson.add(route)
             iterator += 1
         }
@@ -71,7 +72,8 @@ class ComponentController {
     }
     def getAllNodes(Long id_c1){
         int id = 1
-        def colorMap = [1:"red",2:"green",3:"blue",4:"pink"]
+        def colorMap = [1:"red",2:"green",3:"blue",4:"purple"]
+        def direccion = ["red":"to","green":"to","blue":"to","purple":"from"]
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1
         }
@@ -100,7 +102,9 @@ class ComponentController {
         }
         def ite = 0
         uniquesedges.each { arr -> 
-            def route = [from: arr[0], to: arr[1],color:colors.get(ite)]
+            def dir = colors.get(ite)
+            def arrows = direccion[dir] 
+            def route = [from: arr[0], to: arr[1],color:colors.get(ite),arrows: arrows]
             ejson.add(route)
             ite += 1
         }
@@ -220,8 +224,9 @@ class ComponentController {
                 def from = route.from
                 def to = route.to
                 def color = route.color
+                def arrow = route.arrows
                 medges[from].add(to)
-                edges.add(JsonOutput.toJson([from: from, to:to,color:color] ))
+                edges.add(JsonOutput.toJson([from: from, to:to,color:color,arrows:arrow] ))
             }
         }
         render(view:'overview',model:[nodes: JsonOutput.toJson(nodes), edges: JsonOutput.toJson(edges)])
