@@ -1,6 +1,6 @@
-#Mon, 14 Sep 2020 09:33:38 -0500
+#Thu, 21 Jan 2021 12:13:07 -0600
 
 info.app.version=0.1
 info.app.name=Mayberry
-grails.env=production
+grails.env=development
 info.app.grailsVersion=4.0.1

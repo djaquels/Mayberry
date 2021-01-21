@@ -11,7 +11,7 @@ CREATE TABLE component (
 );
 
 CREATE TABLE dependencies (
- id serial, grade integer, id_c1 integer, id_c2 integer,
+ id serial, grade integer, id_c1 integer, id_c2 integer,detail text,
  CONSTRAINT fk_c1
  FOREIGN KEY(id_c1)
  REFERENCES component(id),

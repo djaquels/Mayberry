@@ -12,9 +12,10 @@ class DependencyController {
         def grade = params.grade.toInteger()
         def idC1 = params.c1.toInteger()
         def idC2  = params.c2.toInteger()
+        def detail = params.detail.toString()
         def mensaje = "New Depedency created."
         def componentsList = componentService.list()
-        def db = new Dependency(grade: grade, idC1: idC1, idC2: idC2)
+        def db = new Dependency(grade: grade, idC1: idC1, idC2: idC2, detail:detail)
         dependencyService.save(db)
         render(view:'index',model:[list: componentsList, mensaje: mensaje])
 

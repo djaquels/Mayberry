@@ -30,16 +30,20 @@ class ComponentController {
     }
     def getNodes(Long id_c1){
         int id = 1
+        def colorMap = [1:"red",2:"green",3:"blue"]
+
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1 || it.idC2 == id_c1
         }
         def uniques  = []
         def uniquesedges = []
+        def colors = []
         nodes.each {
             uniques.add(it.idC1)
             uniques.add(it.idC2)
             def route = [it.idC1,it.idC2]
             uniquesedges.add(route)
+            colors.add(colorMap[it.grade])
         }
         uniquesedges = uniquesedges.toSet()
         def djson = []
@@ -54,9 +58,12 @@ class ComponentController {
             djson.add(object)
             id += 1
         }
+        def iterator = 0
         uniquesedges.each { arr -> 
-            def route = JsonOutput.toJson([from: mapn.get(arr[0]), to: mapn.get(arr[1])] )
+            def colorjson = JsonOutput.toJson([color: colors.get(iterator)])
+            def route = JsonOutput.toJson([from: mapn.get(arr[0]), to: mapn.get(arr[1]),color:colorjson] )
             ejson.add(route)
+            iterator += 1
         }
        
         
@@ -64,15 +71,18 @@ class ComponentController {
     }
     def getAllNodes(Long id_c1){
         int id = 1
+        def colorMap = [1:"red",2:"green",3:"blue"]
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1
         }
         def uniques  = []
         def uniquesedges = []
+        def colors = []
         nodes.each {
             uniques.add(it.idC1)
             uniques.add(it.idC2)
             def route = [it.idC1,it.idC2]
+            colors.add(colorMap[it.grade])
             uniquesedges.add(route)
         }
         uniquesedges = uniquesedges.toSet()
@@ -88,9 +98,11 @@ class ComponentController {
             djson.add(object)
             id += 1
         }
+        def ite = 0
         uniquesedges.each { arr -> 
-            def route = [from: arr[0], to: arr[1]]
+            def route = [from: arr[0], to: arr[1],color:colors.get(ite)]
             ejson.add(route)
+            ite += 1
         }
        
         
@@ -207,8 +219,9 @@ class ComponentController {
             maps.each { route ->  
                 def from = route.from
                 def to = route.to
+                def color = route.color
                 medges[from].add(to)
-                edges.add(JsonOutput.toJson([from: from, to:to] ))
+                edges.add(JsonOutput.toJson([from: from, to:to,color:color] ))
             }
         }
         render(view:'overview',model:[nodes: JsonOutput.toJson(nodes), edges: JsonOutput.toJson(edges)])

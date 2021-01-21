@@ -21,3 +21,9 @@ See an overview of your Systems components, responsibles teams (Squads).
 ![home screen](./4.png "Home Screen")
 
 See the dependencies graph of each of your components and the state of the connections.
+
+### DEPENDENCIES CATALOG
+| Level | Name       | Description                                          |
+|-------|------------|------------------------------------------------------|
+| 1     | Functional | Service A functionality depends on Service B results |
+| 2     | Storage    | Service A stores data into service B                 |

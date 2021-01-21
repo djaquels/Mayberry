@@ -46,6 +46,10 @@ Component: ${component.name}
  var guetta = ${edges};
  var arrson = ${nodes}.map(e => JSON.parse(e));
  var arred = ${edges}.map(e => JSON.parse(e));
+ var colors = arred.map( e => JSON.parse(e.color));
+ for(var i = 0; i < arred.length;i++){
+   arred[i].color = colors[i];
+ }
  var nodes = new vis.DataSet(arrson);
   // create an array with edges
   var edges = new vis.DataSet(arred);
