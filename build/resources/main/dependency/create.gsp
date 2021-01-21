@@ -30,6 +30,11 @@
             <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <div class="pure-control-group">
+            <label for="aligned-name">Name</label>
+            <input type="text" id="detail" name="detail" placeholder="Details of the dependency" />
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
+        <div class="pure-control-group">
             <label for="aligned-grade">Grade</label>
             <input type="number" name="grade" id="aligned-grade" placeholder="1" />
         </div>

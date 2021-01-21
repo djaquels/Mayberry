@@ -30,7 +30,7 @@ class ComponentController {
     }
     def getNodes(Long id_c1){
         int id = 1
-        def colorMap = [1:"red",2:"green",3:"blue"]
+        def colorMap = [1:"red",2:"green",3:"blue",4:"pink"]
 
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1 || it.idC2 == id_c1
@@ -71,7 +71,7 @@ class ComponentController {
     }
     def getAllNodes(Long id_c1){
         int id = 1
-        def colorMap = [1:"red",2:"green",3:"blue"]
+        def colorMap = [1:"red",2:"green",3:"blue",4:"pink"]
         def nodes = Dependency.all.findAll {
             it.idC1 == id_c1
         }
