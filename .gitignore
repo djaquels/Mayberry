@@ -12,3 +12,4 @@ out/
 .classpath
 ./build/*
 build/*
+*application.yml
