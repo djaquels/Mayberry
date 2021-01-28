@@ -25,7 +25,7 @@ System Global Overview
 </h3>
 
 <h3> Dependencies Graph </h3>
-<button onclick="buildHtmlTable('#excelDataTable');"> Download Matrix</button>
+<button class="button-success pure-button"onclick="buildHtmlTable('#excelDataTable');"> Download Matrix</button>
 <div class="pure-g">
     <div id="mynetwork" class="pure-u-1-1">
     </div>

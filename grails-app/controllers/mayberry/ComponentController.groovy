@@ -213,7 +213,7 @@ class ComponentController {
         component.gitlab = gitlaburl
         component.url_development = url_development
         component.port_development = Integer.parseInt(port_development)
-        component.save()
+        componentService.update(component)
         def mensaje = " Component Updated! "
         render(view:'index',model:[components:list, mensaje: mensaje])
     }

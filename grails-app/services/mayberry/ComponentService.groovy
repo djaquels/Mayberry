@@ -16,7 +16,10 @@ class ComponentService {
     }
     def delete(Long id){
         def component = Component.get(id)
-        component.delete()
+        component.delete(flush: true)
+    }
+    def update(Component component){
+        component.save(flush:true)
     }
 
 }
