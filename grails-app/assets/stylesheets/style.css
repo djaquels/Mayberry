@@ -6,7 +6,9 @@ body {
     max-width: 100%;
     height: auto;
 }
-
+#70-bar{
+    width:70%;
+}
 /*
 Add transition to containers so they can push in and out.
 */

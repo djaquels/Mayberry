@@ -31,7 +31,9 @@ class DependencyController {
 
     def create(){
         def componentsList = componentService.list()
-        [ list: componentsList]
+        def idC1 = params.c1.toInteger()
+        def listbase = componentsList.findAll { it.id == idC1}
+        [ list: componentsList, listbase: listbase]
     }
 
     def save(Dependency dependency) {

@@ -13,7 +13,7 @@
         <div class="pure-control-group">
             <label for="aligned-c1">Name</label>
             <g:select name="c1"
-                from="${list}"
+                from="${listbase}"
                 optionKey="id"
                 optionValue="name"
                  />
@@ -31,12 +31,12 @@
         </div>
         <div class="pure-control-group">
             <label for="aligned-name">Name</label>
-            <input type="text" id="detail" name="detail" placeholder="Details of the dependency" />
+            <input type="text" id="detail" name="detail 70-bar" placeholder="Details of the dependency" />
             <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <div class="pure-control-group">
             <label for="aligned-grade">Grade</label>
-            <input type="number" name="grade" id="aligned-grade" placeholder="1" />
+            <input type="number" name="grade" id="aligned-grade 70-bar" placeholder="1" />
         </div>
         <div class="pure-controls">
             <label for="aligned-cb" class="pure-checkbox">
